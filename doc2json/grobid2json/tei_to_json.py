@@ -130,7 +130,8 @@ def extract_figures_and_tables_from_tei_xml(sp: BeautifulSoup) -> Dict[str, Dict
                         "latex": None,
                         "type": "table",
                         "content": table_to_html(fig.table),
-                        "fig_num": fig.get('xml:id')
+                        "fig_num": fig.get('xml:id'),
+                        "coords":  fig.get('coords')
                     }
                 else:
                     if True in [char.isdigit() for char in fig.findNext('head').findNext('label')]:
@@ -142,7 +143,8 @@ def extract_figures_and_tables_from_tei_xml(sp: BeautifulSoup) -> Dict[str, Dict
                         "latex": None,
                         "type": "figure",
                         "content": "",
-                        "fig_num": fig_num
+                        "fig_num": fig_num,
+                        "coords":  fig.get('coords')
                     }
         except AttributeError:
             continue
@@ -613,7 +615,8 @@ def extract_body_text_from_div(
                             "text": "EQUATION",
                             "ref_id": "EQREF",
                             "raw_str": eq_text,
-                            "eq_num": label
+                            "eq_num": label,
+                            "coords": tag.get('coords')
                         }
                     ],
                     'section': sections

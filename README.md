@@ -1,3 +1,14 @@
+# s2orc-doc2json with bounding box coordinates
+
+A fork of https://github.com/allenai/s2orc-doc2json which adds bounding box coordinates from GROBID to figure, table, and equation references.
+
+How to add bounding box coordinates to the output of GROBID?
+
+- If you use the python client for GROBID, specify tei_coordinates to be True (e.g., `grobid_client.process("processFulltextDocument", ... , tei_coordinates=True)`
+- If you use the REST API endpoint `/api/processFulltextDocument` directly, specify a list of element names for which bounding box coordinates should be added using the teiCoordinates argument
+
+See the original README below:
+
 # Convert scientific papers to S2ORC JSON
 
 This project is a part of [S2ORC](https://github.com/allenai/s2orc). For S2ORC, we convert PDFs to JSON using Grobid and a custom TEI.XML to JSON parser. That TEI.XML to JSON parser (`grobid2json`) is made available here. We additionally process LaTeX dumps from arXiv. That parser (`tex2json`) is also made available here.
@@ -7,6 +18,7 @@ The S2ORC github page includes a JSON schema, but it may be easier to understand
 This custom JSON schema is also used for the [CORD-19](https://github.com/allenai/cord19) project, so those who have interacted with CORD-19 may find this format familiar.
 
 Possible future components (no promises):
+
 - Linking bibliography entries (bibliography consolidation) to papers in S2ORC
 
 ## Setup your environment
@@ -67,7 +79,7 @@ If you want to process LaTeX, in addition to installing Grobid, you also need to
 - [latexpand](https://ctan.org/pkg/latexpand?lang=en) (`apt install texlive-extra-utils`)
 - [tralics](http://www-sop.inria.fr/marelle/tralics/) (`apt install tralics`)
 
-To process LaTeX, all files must be in a zip file, similar to the `*.gz` files you can download from arXiv. 
+To process LaTeX, all files must be in a zip file, similar to the `*.gz` files you can download from arXiv.
 
 Like PDF, first start Grobid using the `run_grobid.sh` script. Then, try to process one of the test files available under `tests/latex/`. For example, you can try:
 
@@ -139,4 +151,3 @@ If you use this utility in your research, please cite:
 Contributions are welcome. Note the embarassingly poor test coverage. Also, please note this pipeline is not perfect. It will miss text or make errors on most PDFs. The current PDF to JSON step uses Grobid; we may replace this with a different model in the future.
 
 Issues: contact `lucyw@allenai.org` or `kylel@allenai.org`
-
